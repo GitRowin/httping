@@ -39,6 +39,8 @@ Usage: httping [options] <url>
         Whether to not count requests that did not reuse a connection towards the final statistics
   -timeout uint
         Request timeout in milliseconds (default 5000)
+  -user-agent string
+        Change the User-Agent header (default "httping (https://github.com/GitRowin/httping)")
 ```
 
 Example: `httping -count 10 -disable-compression -timeout 1000 https://example.com/`

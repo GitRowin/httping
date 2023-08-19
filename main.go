@@ -26,6 +26,7 @@ var (
 	disableCompression bool
 	disableHttp2       bool
 	noNewConnCount     bool
+	userAgent          string
 )
 
 func init() {
@@ -36,6 +37,7 @@ func init() {
 	flag.BoolVar(&disableCompression, "disable-compression", false, "Whether to disable compression")
 	flag.BoolVar(&disableHttp2, "disable-h2", false, "Whether to disable HTTP/2")
 	flag.BoolVar(&noNewConnCount, "no-new-conn-count", false, "Whether to not count requests that did not reuse a connection towards the final statistics")
+	flag.StringVar(&userAgent, "user-agent", "httping (https://github.com/GitRowin/httping)", "Change the User-Agent header")
 }
 
 type TLSNextProtoMap = map[string]func(authority string, c *tls.Conn) http.RoundTripper
@@ -238,6 +240,8 @@ func sendRequest(client *http.Client, ctx context.Context, targetUrl string) (*S
 
 	// Make a new GET request with the client trace
 	req, err := http.NewRequestWithContext(httptrace.WithClientTrace(ctx, trace), "GET", targetUrl, nil)
+
+	req.Header.Set("User-Agent", userAgent)
 
 	// Send the request
 	res, err := client.Do(req)
