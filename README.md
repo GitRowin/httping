@@ -44,3 +44,15 @@ Usage: httping [options] <url>
 ```
 
 Example: `httping -count 10 -disable-compression -timeout 1000 https://example.com/`
+
+## Fields explained
+
+- dns: Time taken to resolve the domain
+- conn: Time taken to create the TCP connection
+- tls: Time taken to complete the TLS handshake
+- ttfb: Time taken to receive the first byte of the response ("Time To First Byte")
+- total: Total time taken (DNS, TCP, TLS, send request, receive response)
+- reused: Whether the TCP connection was reused to send the request
+- proto: Used HTTP protocol
+- status: The status returned by the server
+- error: The error message
