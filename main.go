@@ -4,9 +4,9 @@ import (
 	"context"
 	"crypto/tls"
 	"errors"
-	"flag"
 	"fmt"
 	"github.com/montanaflynn/stats"
+	flag "github.com/spf13/pflag"
 	"io"
 	"net/http"
 	"net/http/httptrace"
@@ -30,9 +30,9 @@ var (
 )
 
 func init() {
-	flag.UintVar(&count, "count", 0, "Number of requests to send")
-	flag.UintVar(&delay, "delay", 1000, "Minimum delay between requests in milliseconds")
-	flag.UintVar(&timeout, "timeout", 5000, "Request timeout in milliseconds")
+	flag.UintVarP(&count, "count", "n", 0, "Number of requests to send")
+	flag.UintVarP(&delay, "delay", "d", 1000, "Minimum delay between requests in milliseconds")
+	flag.UintVarP(&timeout, "timeout", "t", 5000, "Request timeout in milliseconds")
 	flag.BoolVar(&enableKeepAlive, "enable-keep-alive", false, "Whether to use keep-alive")
 	flag.BoolVar(&disableCompression, "disable-compression", false, "Whether to disable compression")
 	flag.BoolVar(&disableHttp2, "disable-h2", false, "Whether to disable HTTP/2")
@@ -57,6 +57,7 @@ type Statistics struct {
 }
 
 func main() {
+	flag.CommandLine.SortFlags = false
 	flag.Parse()
 
 	targetUrl = flag.Arg(0)
