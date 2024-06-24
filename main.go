@@ -242,6 +242,10 @@ func sendRequest(client *http.Client, ctx context.Context, targetUrl string) (*S
 	// Make a new GET request with the client trace
 	req, err := http.NewRequestWithContext(httptrace.WithClientTrace(ctx, trace), "GET", targetUrl, nil)
 
+	if err != nil {
+		return statistics, err
+	}
+
 	req.Header.Set("User-Agent", userAgent)
 
 	// Send the request
