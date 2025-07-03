@@ -5,8 +5,6 @@ import (
 	"crypto/tls"
 	"errors"
 	"fmt"
-	"github.com/montanaflynn/stats"
-	flag "github.com/spf13/pflag"
 	"io"
 	"net/http"
 	"net/http/httptrace"
@@ -15,6 +13,9 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/montanaflynn/stats"
+	flag "github.com/spf13/pflag"
 )
 
 var (
